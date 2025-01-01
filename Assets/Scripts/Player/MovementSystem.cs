@@ -1,8 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 public class MovementSystem : MonoBehaviour
@@ -15,25 +15,43 @@ public class MovementSystem : MonoBehaviour
     [SerializeField] private float gravityFactor;
     [SerializeField] private float radiusDetection;
 
+    [Header("Audio")]
+    [SerializeField] private GameObject footstepSource;
+
     // Private Values
     private CharacterController characterController;
     private Vector3 inputDirection;
     private Vector3 movementDirection;
     private Vector3 verticalVelocity;
+    private bool gameIsFinished = false;
 
     private void OnEnable()
     {
         inputManger.OnMove += Move;
+        EndLevelTrigger.onEndLevel += SetEndLevel;
     }
+
     private void OnDestroy()
     {
         inputManger.OnMove -= Move;
+        EndLevelTrigger.onEndLevel -= SetEndLevel;
     }
 
     private void Move(Vector2 obj)
     {
-        inputDirection = new Vector3(obj.x, 0, obj.y);
-        RotateToDestination(movementDirection);
+        if(!gameIsFinished)
+        {
+            inputDirection = new Vector3(obj.x, 0, obj.y);
+            RotateToDestination(movementDirection);
+            if (inputDirection.magnitude > 0)
+            {
+                footstepSource.SetActive(true);
+            }
+            else
+            {
+                footstepSource.SetActive(false);
+            }
+        }
     }
 
     // Start is called before the first frame update
@@ -75,5 +93,11 @@ public class MovementSystem : MonoBehaviour
     {
         verticalVelocity.y += gravityFactor * Time.deltaTime;
         characterController.Move(verticalVelocity * Time.deltaTime);
+    }
+
+
+    private void SetEndLevel()
+    {
+        gameIsFinished = true;
     }
 }

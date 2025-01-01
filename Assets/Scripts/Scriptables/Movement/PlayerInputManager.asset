@@ -1,14 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c17b16abe819d749b4535e9c4e24223, type: 3}
-  m_Name: PlayerInputManager
-  m_EditorClassIdentifier: 
+version https://git-lfs.github.com/spec/v1
+oid sha256:03cab25f8d213728235349eab54ff2e4223f04ea379902ef91ec0ed47c6d6c1f
+size 407
